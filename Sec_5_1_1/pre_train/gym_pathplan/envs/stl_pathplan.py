@@ -127,26 +127,9 @@ class STL_Problem_GF(gym.Env):
         stl_reward = self.STLreward(self.past_tau_trajectory) # stl reward
         reward = self.reward(self.state, action) # low-level reward
 
-        #noise_w = np.random.normal(0.0.5)
-
         noise_w0 = 0.1*np.random.normal(0,1) 
         noise_w1 = 0.1*np.random.normal(0,1)
         noise_w2 = 0.1*np.random.normal(0,1)
-
-        # next step ================================================
-        #if abs(action[1]) <= 0.01:
-        #    self.state[0] += action[0] * math.cos(self.state[2]) * self.dt
-        #    self.state[1] += action[0] * math.sin(self.state[2]) * self.dt
-        #else:
-        #    self.state[0] += (action[0]/action[1]) * (math.sin(self.state[2] + action[1]*self.dt)-math.sin(self.state[2]))
-        #    self.state[1] += (action[0]/action[1]) * (math.cos(self.state[2])-math.cos(self.state[2] + action[1]*self.dt))
-        #self.state[2] += action[1] * self.dt + action[0] * self.dt * noise_w
-
-        #if self.state[2] < -np.pi:
-        #    self.state[2] += math.pi * 2.0
-        #elif math.pi < self.state[2]:
-        #    self.state[2] -= math.pi * 2.0
-        #======================================================================
 
         # next step ================================================
         self.state[0] += (action[0] * math.cos(self.state[2]) + noise_w0) * self.dt
@@ -154,9 +137,11 @@ class STL_Problem_GF(gym.Env):
         self.state[2] += (action[1] + noise_w2) * self.dt 
 
         if self.state[2] < -np.pi:
-            self.state[2] += math.pi * 2.0
-        elif math.pi < self.state[2]:
-            self.state[2] -= math.pi * 2.0
+            #self.state[2] += math.pi * 2.0 # original ver
+            self.state[2] += np.pi * 2.0
+        elif np.pi < self.state[2]:
+            #self.state[2] -= math.pi * 2.0
+            self.state[2] -= np.pi * 2.0
         #======================================================================
 
         self.past_tau_trajectory = self.past_tau_trajectory[1:]
@@ -238,7 +223,7 @@ class STL_Problem_GF(gym.Env):
                 phi_1_rob = max(phi_1_rob, temp_1_rob)
                 phi_2_rob = max(phi_2_rob, temp_2_rob)
 
-            returns = min(phi_1_rob, phi_2_rob) # GF
+            returns = min(phi_1_rob, phi_2_rob) 
 
             if returns >= 0:
                 returns = 1.0
