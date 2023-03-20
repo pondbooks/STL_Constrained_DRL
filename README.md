@@ -13,6 +13,15 @@ gym 0.19.0
 
 ```
 
+## PC
+```
+CPU: AMD(R) Ryzen 9 3950X
+Main Memory: DDR4-2666 16GB 2
+Motherboard: ASUS PRIME X570-PRO
+GPU: NVIDIA(R) GeForce RTX 2070 SUPER
+OS: ubuntu 18.04
+```
+
 ## Pip List
 ```
 cloudpickle (1.6.0)
