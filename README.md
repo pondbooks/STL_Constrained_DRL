@@ -5,6 +5,11 @@ Implementation of Deep reinforcement learning under signal temporal logic constr
 ## Python Version
 ```
 Python 3.6.9
+Cuda 10.2
+Pytorch 1.7.1
+Torch Audio 0.7.2
+Torch Vision 0.8.2
+gym 0.19.0
 
 ```
 
